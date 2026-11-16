@@ -12,7 +12,7 @@ No build step and no dependencies: `index.html` plus `assets/` (CSS, JS, logo). 
 
 ## Before publishing
 
-- Replace `CONTACT_EMAIL` in `index.html` (the "Get in touch" button) with a real contact address.
+- The "Get in touch" button in `index.html` mails xdliu@cuhk.edu.hk; change it there if the contact changes.
 - Re-check the numbers against the current releases: 357 tests (StimLoop V1.1, 2026-11-11), 1,641 firmware checks (tTIS firmware v0.2.6, 2026-11-13), and the tTIS parameter ranges from the firmware README.
 
 ## Interactive figures
