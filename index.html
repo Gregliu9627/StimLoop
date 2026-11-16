@@ -102,13 +102,25 @@
       <p class="sub">StimLoop is a general framework, not a single experiment. Signal sources, feedback measures, controllers and stimulators are plugins behind fixed interfaces. An experiment is a configuration pack that selects them. Safety supervision, recording, replay and audit stay the same whichever device is attached.</p>
     </div>
 
+    <figure class="film">
+      <video id="film" controls preload="none" playsinline poster="assets/media/stimloop-film-cover.jpg" width="1920" height="1080" aria-label="StimLoop concept film, 54 seconds, no sound">
+        <source src="assets/media/stimloop-film-1080p.mp4" type="video/mp4">
+        <track kind="captions" src="assets/media/stimloop-film-en.vtt" srclang="en" label="English" default>
+        <track kind="captions" src="assets/media/stimloop-film-zh.vtt" srclang="zh" label="中文">
+      </video>
+      <figcaption class="small muted"><b>StimLoop in 54 seconds.</b> Concept film without sound; captions in English and Chinese (CC). Signals, responses and anatomy are illustrations, not recordings or simulations.</figcaption>
+    </figure>
+
     <div class="loop-grid">
       <div class="loop-fig">
-        <svg viewBox="0 0 600 600" id="loop-svg" role="img" aria-label="StimLoop closed-loop diagram with five stages">
+        <svg viewBox="0 0 600 600" id="loop-svg" role="img" aria-label="StimLoop closed-loop diagram: six stages on the loop and a calibrator at session start">
           <defs>
             <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stop-color="#2f7bff"/><stop offset="1" stop-color="#34d3ff"/>
             </linearGradient>
+            <marker id="cal-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#a98bff"/>
+            </marker>
             <radialGradient id="core" cx=".5" cy=".5" r=".5">
               <stop offset="0" stop-color="#1a3a7a" stop-opacity=".9"/><stop offset="1" stop-color="#0a1020" stop-opacity="0"/>
             </radialGradient>
@@ -123,12 +135,18 @@
             <text x="300" y="312" text-anchor="middle" class="svg-s">record · replay · audit</text>
             <text x="300" y="332" text-anchor="middle" class="svg-s">report · desktop app</text>
           </g>
+          <path d="M380 398 L428 403" fill="none" stroke="#a98bff" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#cal-arrow)"/>
+          <g class="lcal" id="loop-cal" tabindex="0" role="button" aria-label="Session start: calibrator">
+            <rect class="bg" x="220" y="372" width="160" height="54" rx="12"/>
+            <text class="k" x="300" y="391" text-anchor="middle">SESSION START</text>
+            <text class="lbl" x="300" y="413" text-anchor="middle">Calibrator</text>
+          </g>
           <g id="loop-nodes"></g>
         </svg>
       </div>
       <div class="loop-detail card" id="loop-detail" aria-live="polite">
-        <p class="mono tag" id="ld-step">Stage 1 / 5</p>
-        <h3 id="ld-title">Signal input</h3>
+        <p class="mono tag" id="ld-step">Session start</p>
+        <h3 id="ld-title">Calibrator</h3>
         <p id="ld-body"></p>
         <ul class="ticks" id="ld-list"></ul>
         <div class="ld-nav">
@@ -460,6 +478,18 @@
       <div class="step"><span class="mono n">05</span><h4>Review</h4><p>Every decision is recorded, replayable and independently audited, ready for clinicians and regulators.</p></div>
     </div>
 
+    <div class="persona">
+      <video class="persona-vid" id="persona-vid" autoplay muted loop playsinline preload="metadata" poster="assets/media/stimloop-loop.jpg" width="1280" height="720" aria-label="Animated loop: acquire, estimate, control, safe output and response around an illustrated brain, with calibration at session start and parameter suggestions between sessions">
+        <source src="assets/media/stimloop-loop.mp4" type="video/mp4">
+      </video>
+      <div class="persona-text">
+        <p class="mono tag">Personal by design</p>
+        <h3>Calibrated at the start, adapted within, refined between sessions.</h3>
+        <p>Each session opens with reference and active trials that learn how this patient responds. Within the session, the controller adapts the dose from trusted feedback. Between sessions, verified records suggest where the next session should start.</p>
+        <p class="small muted">Illustrative animation; signals and anatomy are not patient data.</p>
+      </div>
+    </div>
+
     <div class="diff">
       <div><h4>vs. medication</h4><p>Targets circuits directly, with no systemic exposure.</p></div>
       <div><h4>vs. DBS / SCS</h4><p>Deep reach without surgery, implant or battery replacement.</p></div>
@@ -527,6 +557,16 @@
         <li><b>Device makers</b><span>adapters for acquisition and stimulation hardware</span></li>
         <li><b>Investors</b><span>translation from engineering prototype to clinical product</span></li>
       </ul>
+      <div class="materials">
+        <a class="mat-thumb" href="assets/media/stimloop-overview-3840.png" download="StimLoop_Closed_Loop_Overview.png"><img src="assets/media/stimloop-overview-1200.jpg" width="1200" height="750" loading="lazy" alt="StimLoop one-page overview: six-stage closed loop around a brain, calibrator at session start, parameter suggestions between sessions, record, replay and audit across every stage."></a>
+        <div>
+          <p class="mono tag">Materials</p>
+          <ul class="mat-list">
+            <li><a href="assets/media/stimloop-overview-3840.png" download="StimLoop_Closed_Loop_Overview.png">One-page overview</a><span class="mono">PNG · 3840 × 2400 · 1.4 MB · English / 中文</span></li>
+            <li><a href="assets/media/stimloop-film-1080p.mp4" download="StimLoop_Concept_Film.mp4">Concept film</a><span class="mono">MP4 · 1080p · 54 s · 7.8 MB</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="card contact-card">
       <img src="assets/stimloop-mark.svg" alt="" width="112" height="112">

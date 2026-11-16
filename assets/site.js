@@ -110,20 +110,24 @@
   (function loop() {
     const g = $('#loop-nodes'); if (!g) return;
     const stages = [
-      { s: 'Signal', t: 'Signal input', b: 'Neural signals arrive through one source interface, whether they come from a live amplifier, a recorded file or a simulator.',
+      { s: 'Acquire', t: 'Acquire', b: 'Neural signals arrive through one source interface, whether they come from a live amplifier, a recorded file or a simulator.',
         l: ['EEG, ECoG and LFP sources behind a fixed plugin interface', 'Clock alignment between acquisition and controller time', 'Per-channel quality flags; known bad channels excluded'] },
-      { s: 'Features', t: 'Signal processing', b: 'Stateful, causal filtering turns raw voltage into features without using any future samples, so live and offline results match.',
-        l: ['Trailing-window band-power features', 'A normalized, continuous feedback measure', 'On artifact windows the controller abstains instead of guessing'] },
-      { s: 'Calibrate', t: 'Feedback & calibration', b: 'Each session starts by learning how this subject responds, before any adaptive control begins.',
-        l: ['Zero-reference and active trials on a configurable schedule', 'Estimates response direction, gain, drift and uncertainty', 'Uncertain or unreachable targets stop output instead of escalating it'] },
-      { s: 'Control', t: 'Parameter control', b: 'Controllers propose the next parameters from the calibrated response, one bounded step at a time.',
+      { s: 'Estimate', t: 'Estimate the state', b: 'Stateful, causal filtering turns raw voltage into features without using any future samples, so live and offline results match.',
+        l: ['Trailing-window band-power features', 'A normalized, continuous feedback measure', 'No disease classifier in the core'] },
+      { s: 'Control', t: 'Control', b: 'Controllers propose the next parameters from the calibrated response, one bounded step at a time.',
         l: ['bounded_step · adaptive_gain (ARX/Kalman) · gp_bandit (GP-UCB)', 'Amplitude, pulse width and frequency as control dimensions', 'A HOLD / STEP gate decides whether parameters may change'] },
-      { s: 'Output', t: 'Safety & output', b: 'Every proposed output passes a protocol-aware supervisor before it reaches the device. The loop closes when the next signal is read.',
-        l: ['Typed SCS / DBS / TMS / TI protocols with unit and capability checks', 'Amplitude, waveform and charge limits within a session budget', 'An ALLOW / WAIT / SUSPEND gate; faults latch', 'Delivery is confirmed by device evidence, never by the request alone'] },
+      { s: 'Supervise', t: 'Supervise', b: 'Every proposed output passes a protocol-aware supervisor before it reaches the device.',
+        l: ['Typed SCS / DBS / TMS / TI protocols with unit and capability checks', 'Amplitude, waveform and charge limits within a session budget', 'An ALLOW / WAIT / SUSPEND gate; faults latch'] },
+      { s: 'Stimulate', t: 'Stimulate & verify', b: 'Approved output goes to the attached stimulator through its device adapter, and the record shows what was actually delivered.',
+        l: ['SCS, DBS, TMS and TI devices behind one stimulator interface', 'Delivery is confirmed by device evidence, never by the request alone', 'Unknown output is never retried automatically'] },
+      { s: 'Reassess', t: 'Reassess', b: 'The next signal window closes the loop: the response is measured again and becomes new evidence.',
+        l: ['Every window is quality-checked before it is used', 'On artifact or uncertain windows the controller abstains instead of guessing', 'Trusted feedback drives the next bounded step'] },
     ];
+    const cal = { t: 'Calibrator', b: 'Each session starts by learning how this subject responds, before any adaptive control begins. The response model it builds is what the controller works from.',
+      l: ['Zero-reference and active trials on a configurable schedule', 'Estimates response direction, gain, drift and uncertainty', 'Uncertain or unreachable targets stop output instead of escalating it', 'Between sessions, verified records suggest the next starting parameters'] };
     const NS = 'http://www.w3.org/2000/svg';
     const nodes = stages.map((st, i) => {
-      const a = (-90 + i * 72) * Math.PI / 180, x = 300 + 210 * Math.cos(a), y = 300 + 210 * Math.sin(a);
+      const a = (-90 + i * 60) * Math.PI / 180, x = 300 + 210 * Math.cos(a), y = 300 + 210 * Math.sin(a);
       const n = document.createElementNS(NS, 'g');
       n.setAttribute('class', 'lnode'); n.setAttribute('tabindex', '0'); n.setAttribute('role', 'button');
       n.setAttribute('aria-label', `Stage ${i + 1}: ${st.t}`);
@@ -131,18 +135,22 @@
       g.appendChild(n);
       return n;
     });
+    // item 0 is the calibrator (session start), items 1..6 the stages on the ring
+    const calNode = $('#loop-cal');
+    const items = [cal, ...stages], els = [calNode, ...nodes];
     let cur = 0, auto = true, timer;
     function show(i) {
-      cur = (i + stages.length) % stages.length;
-      const st = stages[cur];
-      nodes.forEach((n, k) => n.classList.toggle('active', k === cur));
-      $('#ld-step').textContent = `Stage ${cur + 1} / ${stages.length}`;
+      cur = (i + items.length) % items.length;
+      const st = items[cur];
+      els.forEach((n, k) => n && n.classList.toggle('active', k === cur));
+      $('#ld-step').textContent = cur === 0 ? 'Session start' : `Stage ${cur} / ${stages.length}`;
       $('#ld-title').textContent = st.t;
       $('#ld-body').textContent = st.b;
       $('#ld-list').innerHTML = st.l.map(x => `<li>${x}</li>`).join('');
     }
     const stop = () => { auto = false; clearInterval(timer); };
-    nodes.forEach((n, i) => {
+    els.forEach((n, i) => {
+      if (!n) return;
       n.addEventListener('click', () => { stop(); show(i); });
       n.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); show(i); } });
     });
@@ -428,6 +436,12 @@
     }
     animateWhileVisible(canvas, draw);
   })();
+  /* ---------- personal-by-design loop video: respect reduced motion ---------- */
+  (function personaVideo() {
+    const v = $('#persona-vid'); if (!v) return;
+    if (reduceMotion) { v.removeAttribute('autoplay'); v.pause(); v.setAttribute('controls', ''); }
+  })();
+
   /* ---------- planning chart: hover / focus tooltip ---------- */
   (function planTip() {
     const fig = document.querySelector('.plan-chart');

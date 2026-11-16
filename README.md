@@ -20,8 +20,16 @@ No build step and no dependencies: `index.html` plus `assets/` (CSS, JS, logo). 
 All figures are drawn in `assets/site.js` with plain canvas/SVG:
 
 - hero: animated multichannel traces;
-- platform: clickable five-stage loop;
+- platform: clickable six-stage loop with the session-start calibrator;
 - tTIS: two-carrier interference waveform (TI / sham) and a 2-D homogeneous-conductor envelope map with a current-ratio slider (illustrative, not a head model);
 - state models: an illustrative closed-loop state monitor.
 
 Animations pause off-screen and are disabled under `prefers-reduced-motion`.
+
+## Media
+
+`assets/media/` holds the concept film (54 s, no burned-in subtitles; English and Chinese
+WebVTT caption tracks), the "Personal by design" loop (MP4, autoplays muted in the lead-program
+section) and the one-page overview (PNG 3840 × 2400, offered for download in the contact section).
+All signals, responses and anatomy in them are illustrations. The animation source, the bilingual
+version with burned-in subtitles and the GIF are kept outside this repository.

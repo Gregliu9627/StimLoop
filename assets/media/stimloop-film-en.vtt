@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Read the brain. Learn the individual response. Adapt stimulation to the neural state.
+
+00:00:05.000 --> 00:00:13.000
+Extract candidate disease-related features; estimate a continuous neural state and its uncertainty.
+
+00:00:13.000 --> 00:00:23.000
+Calibrator: learn how this individual responds before adaptive control begins.
+
+00:00:23.000 --> 00:00:30.000
+The controller proposes bounded updates; the safety supervisor decides whether output may occur.
+
+00:00:30.000 --> 00:00:38.000
+tTIS example: two carrier channels create a difference-frequency envelope. Verify actual delivery.
+
+00:00:38.000 --> 00:00:47.000
+Measure again and adapt from trusted feedback. Wait through artifact or uncertain windows.
+
+00:00:47.000 --> 00:00:54.000
+Adapt within sessions; use verified records to suggest personalized parameters for the next session.
