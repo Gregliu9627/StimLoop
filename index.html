@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StimLoop · Closed-loop neuromodulation</title>
+<meta name="description" content="StimLoop develops a modular closed-loop neuromodulation platform, in-house neural state models and temporal-interference stimulation hardware. Lead program: non-invasive closed-loop therapy for chronic pain and depression.">
+<meta property="og:title" content="StimLoop · closed-loop neuromodulation">
+<meta property="og:description" content="Signal in, stimulus out, loop closed. A modular platform for adaptive, auditable neuromodulation, with non-invasive tTIS hardware for deep brain targets.">
+<meta property="og:image" content="assets/stimloop-mark.png">
+<meta name="theme-color" content="#05080f">
+<link rel="icon" href="assets/stimloop-mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/stimloop-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="StimLoop home">
+      <img src="assets/stimloop-mark.svg" alt="" width="30" height="30">
+      <span>StimLoop</span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#modules">Modules</a>
+      <a href="#ttis">tTIS</a>
+      <a href="#models">State models</a>
+      <a href="#solution">Pain &amp; depression</a>
+      <a href="#status">Status</a>
+      <a class="btn btn-sm" href="#contact">Partner with us</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-fade" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow mono"><span class="dot live"></span> StimLoop V1.1 · closed-loop neuromodulation platform</p>
+    <h1>Read the brain.<br>Stimulate precisely.<br><span class="grad">Close the loop.</span></h1>
+    <p class="lede">The <strong>StimLoop platform</strong> is a modular framework that turns neural signals into bounded, auditable stimulation decisions. We also build the modules that plug into it: neural <strong>state models</strong> for EEG, ECoG and in vivo recordings, and our own <strong>temporal-interference stimulator (tTIS)</strong> that reaches deep brain targets from the scalp.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#solution">Our lead program: pain &amp; depression</a>
+      <a class="btn btn-ghost" href="#platform">Explore the platform &rarr;</a>
+    </div>
+  </div>
+  <div class="wrap">
+    <dl class="stats">
+      <div><dt class="mono">Loop stages</dt><dd>5</dd><p>signal &rarr; features &rarr; calibration &rarr; control &rarr; safe output</p></div>
+      <div><dt class="mono">Stimulation protocols</dt><dd>4</dd><p>typed SCS · DBS · TMS · TI protocols with unit &amp; charge checks</p></div>
+      <div><dt class="mono">Automated tests</dt><dd data-count="357">357</dd><p>StimLoop V1.1 regression, contract &amp; integration suite</p></div>
+      <div><dt class="mono">Firmware safety checks</dt><dd data-count="1641">1,641</dd><p>tTIS firmware v0.2.6, run against the hardware model</p></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="section why">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker mono">01 · The problem</p>
+      <h2>Most neuromodulation is still open-loop.</h2>
+      <p class="sub">A fixed dose is chosen once and delivered regardless of what the brain is doing. That ignores large differences between patients and from one session to the next, and leaves no objective record of why a dose was given.</p>
+    </div>
+    <div class="compare">
+      <div class="card compare-old">
+        <p class="mono tag tag-muted">Open-loop today</p>
+        <ul class="ticks ticks-x">
+          <li>Same parameters every session, set by trial and error</li>
+          <li>Outcome judged by symptom scales weeks later</li>
+          <li>Deep targets need surgery (DBS, SCS); non-invasive tools reach mostly the cortex</li>
+          <li>Dose decisions are hard to reconstruct or audit</li>
+        </ul>
+      </div>
+      <div class="card compare-new">
+        <p class="mono tag">The StimLoop approach</p>
+        <ul class="ticks">
+          <li>A continuous neural feedback measure guides every parameter update</li>
+          <li>Per-patient calibration of response direction, gain and uncertainty</li>
+          <li>Non-invasive temporal interference to reach deep structures</li>
+          <li>Every request, delivery and decision is recorded, replayable and audited</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLATFORM ============ -->
+<section class="section" id="platform">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker mono">02 · Platform</p>
+      <h2>StimLoop: one control loop, any signal, any stimulator.</h2>
+      <p class="sub">StimLoop is a general framework, not a single experiment. Signal sources, feedback measures, controllers and stimulators are plugins behind fixed interfaces. An experiment is a configuration pack that selects them. Safety supervision, recording, replay and audit stay the same whichever device is attached.</p>
+    </div>
+
+    <div class="loop-grid">
+      <div class="loop-fig">
+        <svg viewBox="0 0 600 600" id="loop-svg" role="img" aria-label="StimLoop closed-loop diagram with five stages">
+          <defs>
+            <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2f7bff"/><stop offset="1" stop-color="#34d3ff"/>
+            </linearGradient>
+            <radialGradient id="core" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#1a3a7a" stop-opacity=".9"/><stop offset="1" stop-color="#0a1020" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="300" cy="300" r="150" fill="url(#core)"/>
+          <circle cx="300" cy="300" r="210" fill="none" stroke="rgba(120,160,255,.14)" stroke-width="22"/>
+          <circle cx="300" cy="300" r="210" fill="none" stroke="url(#ring)" stroke-width="1.5" stroke-dasharray="3 7" class="ring-spin"/>
+          <circle r="6" cx="300" cy="90" fill="#34d3ff" class="pulse-dot" id="loop-dot1"/>
+          <circle r="3.5" cx="300" cy="510" fill="#9fe8ff" opacity=".7" id="loop-dot2"/>
+          <g class="core-label">
+            <text x="300" y="286" text-anchor="middle" class="svg-k">StimLoop core</text>
+            <text x="300" y="312" text-anchor="middle" class="svg-s">record · replay · audit</text>
+            <text x="300" y="332" text-anchor="middle" class="svg-s">report · desktop app</text>
+          </g>
+          <g id="loop-nodes"></g>
+        </svg>
+      </div>
+      <div class="loop-detail card" id="loop-detail" aria-live="polite">
+        <p class="mono tag" id="ld-step">Stage 1 / 5</p>
+        <h3 id="ld-title">Signal input</h3>
+        <p id="ld-body"></p>
+        <ul class="ticks" id="ld-list"></ul>
+        <div class="ld-nav">
+          <button class="btn btn-ghost btn-sm" id="ld-prev" aria-label="Previous stage">&larr;</button>
+          <button class="btn btn-ghost btn-sm" id="ld-next" aria-label="Next stage">&rarr;</button>
+          <span class="mono muted small">click a stage on the loop</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <h4>Two independent gates</h4>
+        <p><span class="mono">HOLD / STEP</span> decides whether parameters may change. <span class="mono">ALLOW / WAIT / SUSPEND</span> decides whether output may occur. The stricter gate always wins.</p>
+      </div>
+      <div class="pillar">
+        <h4>Delivery needs evidence</h4>
+        <p>A request or an acknowledgement does not prove delivery. Unknown output is never retried automatically, and unresolved reservations stay charged to the session budget.</p>
+      </div>
+      <div class="pillar">
+        <h4>No pain classifier required</h4>
+        <p>Control runs on a calibrated, continuous neural measure. Disease labels stay out of the core, so one framework serves many indications.</p>
+      </div>
+      <div class="pillar">
+        <h4>Reproducible by design</h4>
+        <p>JSONL/HDF5 records, hash-bound manifests, checkpoints and shadow-decision replay. An independent auditor rebuilds each decision from the records alone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULES ============ -->
+<section class="section alt" id="modules">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker mono">03 · Modules</p>
+      <h2>A framework with our own modules in the key slots.</h2>
+      <p class="sub">The StimLoop platform defines the interfaces. We also develop the sensing, modelling and stimulation modules that fill them, and the slots stay open to partner devices.</p>
+    </div>
+    <div class="legend mono small">
+      <span><i class="lg lg-inhouse"></i>In-house module</span>
+      <span><i class="lg lg-core"></i>StimLoop core</span>
+      <span><i class="lg lg-open"></i>Partner / third-party slot</span>
+    </div>
+    <div class="modules">
+      <article class="mod mod-inhouse">
+        <p class="mod-slot mono">Slot · Signal source</p>
+        <h3>NeuroScope acquisition &amp; review</h3>
+        <p>Desktop workbench for EEG, ECoG and in vivo electrophysiology. Reads EDF/BDF, BrainVision, EEGLAB, Intan and Plexon files. Realtime adapters for LSL, BrainFlow, TCP/UDP and NI-DAQmx.</p>
+        <p class="mod-foot mono">In-house · offline &amp; realtime</p>
+      </article>
+      <article class="mod mod-inhouse">
+        <p class="mod-slot mono">Slot · Feedback measure / state model</p>
+        <h3>Neural state models</h3>
+        <p>Validated pipelines that turn raw recordings into state indices: anesthesia depth and emergence from ECoG, spectral and event markers from EEG, LFP and spiking activity from in vivo arrays.</p>
+        <p class="mod-foot mono">In-house · <a href="#models">see state models &rarr;</a></p>
+      </article>
+      <article class="mod mod-core">
+        <p class="mod-slot mono">Slot · Controller</p>
+        <h3>Adaptive controllers</h3>
+        <p><span class="mono">bounded_step</span>, <span class="mono">adaptive_gain</span> (online ARX/Kalman estimation) and <span class="mono">gp_bandit</span> (GP-UCB exploration, then adaptive feedback). Six strategies, from scheduled output to hybrid state-triggered control.</p>
+        <p class="mod-foot mono">StimLoop core</p>
+      </article>
+      <article class="mod mod-inhouse mod-feature">
+        <p class="mod-slot mono">Slot · Stimulator</p>
+        <h3>tTIS temporal-interference stimulator</h3>
+        <p>Two isolated, synchronized constant-current channels that create a low-frequency envelope deep in the brain from scalp electrodes. Built-in sham mode for blinded studies.</p>
+        <p class="mod-foot mono">In-house hardware · <a href="#ttis">see tTIS &rarr;</a></p>
+      </article>
+      <article class="mod mod-core">
+        <p class="mod-slot mono">Layer · Safety &amp; evidence</p>
+        <h3>Protocol-aware supervision</h3>
+        <p>Typed protocols per modality, capability and unit checks, amplitude, waveform and charge limits, conservative budget reservations and an output state machine. Faults latch.</p>
+        <p class="mod-foot mono">StimLoop core</p>
+      </article>
+      <article class="mod mod-open">
+        <p class="mod-slot mono">Slot · Partner devices</p>
+        <h3>SCS · DBS · TMS · acquisition systems</h3>
+        <p>Typed protocols already cover spinal cord, deep brain and transcranial magnetic stimulation. Adapters for commercial acquisition (e.g. OmniPlex) and stimulation (e.g. PlexStim) systems are defined as plugin slots.</p>
+        <p class="mod-foot mono">Adapter interfaces defined · drivers planned</p>
+      </article>
+      <article class="mod mod-core mod-wide">
+        <p class="mod-slot mono">Application layer</p>
+        <h3>Desktop application &amp; parameter suggestion</h3>
+        <p>A five-step desktop workflow (modules → setup → control → results → parameter suggestion) that drives the same validated engine as the command line. The session runs in a separate background process, and a Windows installer is built and self-tested in CI. Parameter suggestion reads a subject's audited sessions and proposes where the next session should start. It reports which parameters are stable and which are not yet settled, and it uses only sessions whose recorded deliveries were confirmed by the device.</p>
+        <p class="mod-foot mono">StimLoop V1.1 · Linux &amp; Windows</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ tTIS ============ -->
+<section class="section" id="ttis">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker mono">04 · In-house hardware</p>
+      <h2>tTIS: deep brain stimulation without surgery.</h2>
+      <p class="sub">Temporal interference uses two kHz-range currents at slightly different frequencies. Each carrier alone is too fast to drive neurons, but where they overlap they produce a slow envelope at the difference frequency Δf. That envelope can be placed below the cortex by changing electrode positions and the current ratio. Our stimulator is designed from the ground up for this method and for closed-loop control.</p>
+    </div>
+
+    <div class="ti-lab">
+      <div class="card ti-panel">
+        <div class="panel-head">
+          <h3>Interference, live</h3>
+          <div class="seg" role="group" aria-label="Stimulation mode">
+            <button class="seg-btn active" data-mode="ti">TI</button>
+            <button class="seg-btn" data-mode="sham">Sham</button>
+          </div>
+        </div>
+        <canvas id="ti-wave" height="300" aria-label="Two carrier currents and their summed envelope"></canvas>
+        <div class="controls">
+          <label><span class="mono">f</span><input type="range" id="ti-f" min="500" max="10000" step="100" value="2000"><output class="mono" id="ti-f-o">2000 Hz</output></label>
+          <label><span class="mono">Δf</span><input type="range" id="ti-df" min="1" max="200" step="1" value="10"><output class="mono" id="ti-df-o">10 Hz</output></label>
+          <label><span class="mono">I₁</span><input type="range" id="ti-a1" min="0" max="2000" step="50" value="1000"><output class="mono" id="ti-a1-o">1000 µA</output></label>
+          <label><span class="mono">I₂</span><input type="range" id="ti-a2" min="0" max="2000" step="50" value="1000"><output class="mono" id="ti-a2-o">1000 µA</output></label>
+        </div>
+        <div class="readouts mono">
+          <div><span>Envelope</span><b id="ro-env">10 Hz</b></div>
+          <div><span>Channel 2</span><b id="ro-f2">2010 Hz</b></div>
+          <div><span>Modulation depth</span><b id="ro-md">100%</b></div>
+        </div>
+      </div>
+
+      <div class="card ti-panel">
+        <div class="panel-head">
+          <h3>Steer the focus</h3>
+          <div class="seg" role="group" aria-label="Field view">
+            <button class="seg-btn active" data-view="ti">TI envelope</button>
+            <button class="seg-btn" data-view="single">Single pair</button>
+          </div>
+        </div>
+        <canvas id="ti-field" height="300" aria-label="Map of envelope amplitude in a 2-D head cross-section"></canvas>
+        <div class="controls">
+          <label class="wide"><span class="mono">I₁ : I₂</span><input type="range" id="ti-ratio" min="-60" max="60" step="1" value="0"><output class="mono" id="ti-ratio-o">1.00 : 1.00</output></label>
+        </div>
+        <p class="small muted">Illustrative 2-D homogeneous conductor, not a head model. Shifting the current ratio moves the envelope peak between the electrode pairs without moving any electrode. A single pair, by contrast, is strongest at the scalp.</p>
+      </div>
+    </div>
+
+    <div class="ttis-hw">
+      <div class="hw-figure card" aria-label="tTIS system architecture">
+        <p class="mono tag">System architecture</p>
+        <div class="hw-flow">
+          <div class="hw-node"><b>PC · StimLoop</b><span>control, records, audit</span></div>
+          <div class="hw-link"><span>isolated USB</span></div>
+          <div class="hw-node hw-acc"><b>Host controller</b><span>8 MHz master clock · envelope-phase tracking</span><span>interlock · E-stop · sync out · trigger in</span></div>
+          <div class="hw-link"><span>digital isolators</span></div>
+          <div class="hw-pair">
+            <div class="hw-node"><b>Channel 1</b><span>floating current source</span><em class="mono">f</em></div>
+            <div class="hw-node"><b>Channel 2</b><span>floating current source</span><em class="mono">f + Δf</em></div>
+          </div>
+          <div class="hw-link"><span>scalp electrodes</span></div>
+          <div class="hw-node hw-target"><i class="focus-dot"></i><b>Deep focus</b><span>envelope at Δf, steered by the current ratio</span></div>
+        </div>
+      </div>
+      <div class="spec card">
+        <h3>Specifications <span class="mono pill pill-amber">engineering prototype</span></h3>
+        <table class="spec-table">
+          <tr><th>Architecture</th><td>Host controller + 2 floating constant-current channel boards</td></tr>
+          <tr><th>Carrier frequency</th><td class="mono">0.5 – 10 kHz</td></tr>
+          <tr><th>Difference frequency Δf</th><td class="mono">up to ±200 Hz</td></tr>
+          <tr><th>Current per channel</th><td class="mono">0 – 2.2 mA peak · 0.1 / 0.5 / 2 mA ranges</td></tr>
+          <tr><th>Waveform engine</th><td>200 kS/s DAC and dual ADC per channel, hardware-timed from one shared clock</td></tr>
+          <tr><th>Synchronization</th><td>Envelope-phase sync output timed to 125 ns, trigger input, smooth closed-loop phase shifts</td></tr>
+          <tr><th>Modes</th><td>TI · sham (no envelope) · single channel · randomized phase</td></tr>
+          <tr><th>Live telemetry</th><td>Current, phase, electrode impedance, DC component and compliance, up to 100 Hz</td></tr>
+          <tr><th>Safety</th><td>Isolated USB and fail-low digital isolators, relay disconnect, local E-stop, over-current, DC and compliance faults, acknowledged amplitude commands, ramped start/stop</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="refs small muted">
+      <p class="mono">Scientific basis</p>
+      <ol>
+        <li>Grossman N. <em>et al.</em> Noninvasive deep brain stimulation via temporally interfering electric fields. <em>Cell</em> 169, 1029–1041 (2017).</li>
+        <li>Violante I. R. <em>et al.</em> Non-invasive temporal interference electrical stimulation of the human hippocampus. <em>Nature Neuroscience</em> 26, 1994–2004 (2023).</li>
+        <li>Wessel M. J. <em>et al.</em> Noninvasive theta-burst stimulation of the human striatum enhances striatal activity and motor skill learning. <em>Nature Neuroscience</em> 26, 2005–2016 (2023).</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATE MODELS ============ -->
+<section class="section alt" id="models">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker mono">05 · Neural state models</p>
+      <h2>From raw voltage to a number a controller can trust.</h2>
+      <p class="sub">A closed loop is only as good as its feedback. We build state models across three recording scales: scalp EEG for the clinic, ECoG for translational studies, and in vivo arrays for mechanism. Each model is quality-controlled, causal where it feeds control, and analysed with the animal or subject as the statistical unit.</p>
+    </div>
+
+    <div class="models-grid">
+      <div class="card monitor">
+        <div class="panel-head">
+          <h3>State monitor <span class="mono pill">illustrative</span></h3>
+          <span class="mono small muted" id="mon-state">in target</span>
+        </div>
+        <canvas id="state-canvas" height="400" aria-label="Illustrative scrolling EEG trace with band powers and a state index tracking a target range"></canvas>
+      </div>
+      <div class="model-cards">
+        <article class="mcard">
+          <p class="mono tag">EEG · non-invasive</p>
+          <h4>Clinical readout</h4>
+          <p>Band power, spectral shape and event detection, with artifact-aware QC that keeps EMG, EOG and ECG channels in their own roles. This is the feedback channel for a non-invasive therapy.</p>
+        </article>
+        <article class="mcard">
+          <p class="mono tag">ECoG · translational</p>
+          <h4>Anesthesia depth &amp; emergence</h4>
+          <p>A blinded 16-channel ECoG pipeline: burst-suppression ratio, spectral and connectivity features, phase-amplitude coupling, CSD and topomaps. Recovery composites are tested with permutation statistics. It is already used to study tTIS-modulated recovery.</p>
+        </article>
+        <article class="mcard">
+          <p class="mono tag">In vivo · mechanism</p>
+          <h4>LFP &amp; spiking activity</h4>
+          <p>Grids of up to 64 channels for LFP and MUA, spike sorting through SpikeInterface, and event-aligned responses that link a stimulation parameter to circuit-level effects.</p>
+        </article>
+      </div>
+    </div>
+
+    <ol class="pipeline mono">
+      <li><b>Acquire</b><span>EEG · ECoG · LFP</span></li>
+      <li><b>Quality control</b><span>auto flags + expert review</span></li>
+      <li><b>Causal features</b><span>no future samples</span></li>
+      <li><b>State index</b><span>normalized, calibrated</span></li>
+      <li><b>Feedback</b><span>into StimLoop</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section class="section solution" id="solution">
+  <div class="sol-glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker mono kicker-warm">06 · Lead program</p>
+      <h2>Non-invasive, closed-loop therapy for <span class="grad-warm">chronic pain</span> and <span class="grad-warm">depression</span>.</h2>
+      <p class="sub">Our lead program brings the stack together. tTIS reaches deep pain and mood circuits without surgery, scalp EEG tracks the patient's neural state, and StimLoop adapts the dose within hard safety limits, session after session.</p>
+    </div>
+
+    <div class="need">
+      <div class="need-card">
+        <p class="big">1 in 5</p>
+        <p>adults live with chronic pain<sup>a</sup>. Many rely on long-term medication, including opioids, with limited relief.</p>
+      </div>
+      <div class="need-card">
+        <p class="big">~280 M</p>
+        <p>people worldwide live with depression<sup>b</sup>, and a substantial share do not respond adequately to first-line treatment.</p>
+      </div>
+      <div class="need-card">
+        <p class="big">0</p>
+        <p>implants, incisions or anesthesia needed to reach deep targets with temporal interference.</p>
+      </div>
+    </div>
+
+    <div class="journey">
+      <div class="step"><span class="mono n">01</span><h4>Baseline</h4><p>Resting EEG and clinical scales define the patient's state index and target range.</p></div>
+      <div class="step"><span class="mono n">02</span><h4>Calibrate</h4><p>Short reference and active trials estimate this patient's response direction, gain and uncertainty.</p></div>
+      <div class="step"><span class="mono n">03</span><h4>Stimulate</h4><p>tTIS targets deep nodes of pain and mood circuits. StimLoop updates the dose from the neural feedback, inside charge and amplitude limits.</p></div>
+      <div class="step"><span class="mono n">04</span><h4>Personalize</h4><p>Parameter suggestion proposes the next session's starting waveform and level from audited past sessions.</p></div>
+      <div class="step"><span class="mono n">05</span><h4>Review</h4><p>Every decision is recorded, replayable and independently audited, ready for clinicians and regulators.</p></div>
+    </div>
+
+    <div class="diff">
+      <div><h4>vs. medication</h4><p>Targets circuits directly, with no systemic exposure.</p></div>
+      <div><h4>vs. DBS / SCS</h4><p>Deep reach without surgery, implant or battery replacement.</p></div>
+      <div><h4>vs. rTMS / tDCS</h4><p>Steerable deep focus, and a dose that follows the brain's response instead of a fixed protocol.</p></div>
+      <div><h4>For trials</h4><p>Built-in sham mode and full audit trail support rigorous, blinded studies.</p></div>
+    </div>
+
+    <p class="disclaimer small"><b>Investigational.</b> This program is in development and has not been approved by any regulatory authority. It is not available for clinical use. Target structures and EEG markers for each indication are under preclinical evaluation. <span class="muted">Sources: <sup>a</sup> International Association for the Study of Pain (IASP). <sup>b</sup> World Health Organization, Depressive disorder fact sheet.</span></p>
+  </div>
+</section>
+
+<!-- ============ STATUS ============ -->
+<section class="section" id="status">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker mono">07 · Where we are</p>
+      <h2>Honest status, engineered evidence.</h2>
+      <p class="sub">We separate what is built and tested from what is planned. Every claim below can be traced to a test log, a design-check report or an analysis record.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl tl-done">
+        <p class="mono pill pill-ok">Done</p>
+        <h4>StimLoop V1.0 – V1.1</h4>
+        <p>Framework, six control strategies, safety supervision, record/replay/audit, interactive reports, desktop app and Windows installer. 357 tests passing. Verified in simulation with mock SCS, DBS, TMS and TI devices.</p>
+      </div>
+      <div class="tl tl-done">
+        <p class="mono pill pill-ok">Done</p>
+        <h4>tTIS design &amp; firmware</h4>
+        <p>Channel board v1.4 and host v1.1 pass design-rule and electrical-rule checks with zero errors. Firmware v0.2.6 passes 1,641 checks in the hardware model, including fault-injection regressions.</p>
+      </div>
+      <div class="tl tl-done">
+        <p class="mono pill pill-ok">Running</p>
+        <h4>Preclinical state models</h4>
+        <p>Blinded ECoG and EEG pipelines in active rodent studies, including anesthesia emergence after tTIS.</p>
+      </div>
+      <div class="tl tl-next">
+        <p class="mono pill pill-amber">Next</p>
+        <h4>Bench validation &amp; device adapters</h4>
+        <p>tTIS fabrication and bench tests on phantom loads: isolation, cut-off times, crosstalk and EEG synchronization. StimLoop adapters for tTIS and commercial acquisition systems, and integration of the state-model runner.</p>
+      </div>
+      <div class="tl tl-later">
+        <p class="mono pill">Then</p>
+        <h4>Closed-loop preclinical studies</h4>
+        <p>Pain and depression models with the full loop, and long-duration wall-clock stability gates.</p>
+      </div>
+      <div class="tl tl-later">
+        <p class="mono pill">Then</p>
+        <h4>Clinical pilot</h4>
+        <p>First-in-human feasibility with clinical partners, and the regulatory pathway.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section alt" id="contact">
+  <div class="wrap contact">
+    <div>
+      <p class="kicker mono">08 · Partner with us</p>
+      <h2>Let's build the closed loop together.</h2>
+      <p class="sub">We are looking for partners in the following areas:</p>
+      <ul class="partners">
+        <li><b>Hospitals &amp; clinical PIs</b><span>pain and psychiatry pilot studies</span></li>
+        <li><b>Research labs</b><span>closed-loop experiments on EEG / ECoG / in vivo setups</span></li>
+        <li><b>Device makers</b><span>adapters for acquisition and stimulation hardware</span></li>
+        <li><b>Investors</b><span>translation from engineering prototype to clinical product</span></li>
+      </ul>
+    </div>
+    <div class="card contact-card">
+      <img src="assets/stimloop-mark.svg" alt="" width="112" height="112">
+      <p class="contact-name">StimLoop</p>
+      <p class="mono small muted">Closed-loop neuromodulation<br>platform · state models · tTIS</p>
+      <a class="btn" id="contact-btn" href="mailto:CONTACT_EMAIL">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap foot-inner">
+    <div class="brand"><img src="assets/stimloop-mark.svg" alt="" width="24" height="24"><span>StimLoop</span></div>
+    <p class="small muted">© 2026 StimLoop. The StimLoop platform and tTIS are research and engineering systems under development and are not medical devices approved for clinical use.</p>
+    <a class="small mono" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
