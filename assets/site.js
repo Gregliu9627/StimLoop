@@ -428,4 +428,25 @@
     }
     animateWhileVisible(canvas, draw);
   })();
+  /* ---------- planning chart: hover / focus tooltip ---------- */
+  (function planTip() {
+    const fig = document.querySelector('.plan-chart');
+    if (!fig) return;
+    const tip = fig.querySelector('.pc-tip');
+    function show(bar) {
+      tip.textContent = bar.dataset.tip;
+      tip.hidden = false;
+      const f = fig.getBoundingClientRect(), b = bar.getBoundingClientRect();
+      const x = Math.min(b.right - f.left + 8, f.width - tip.offsetWidth);
+      tip.style.left = Math.max(0, x) + 'px';
+      tip.style.maxWidth = f.width + 'px';
+      tip.style.top = (b.top - f.top - tip.offsetHeight - 6) + 'px';
+    }
+    fig.querySelectorAll('.pc-bar').forEach(bar => {
+      bar.addEventListener('pointerenter', () => show(bar));
+      bar.addEventListener('focus', () => show(bar));
+      bar.addEventListener('pointerleave', () => { tip.hidden = true; });
+      bar.addEventListener('blur', () => { tip.hidden = true; });
+    });
+  })();
 })();

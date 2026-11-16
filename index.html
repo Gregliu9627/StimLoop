@@ -281,7 +281,7 @@
             <div class="hw-node"><b>Channel 2</b><span>floating current source</span><em class="mono">f + Δf</em></div>
           </div>
           <div class="hw-link"><span>scalp electrodes</span></div>
-          <div class="hw-node hw-target"><i class="focus-dot"></i><b>Deep focus</b><span>envelope at Δf, steered by the current ratio</span></div>
+          <div class="hw-node hw-target"><i class="focus-dot"></i><b>Deep target</b><span>envelope at Δf, montage and current ratio from the planner</span></div>
         </div>
       </div>
       <div class="spec card">
@@ -298,6 +298,76 @@
           <tr><th>Safety</th><td>Isolated USB and fail-low digital isolators, relay disconnect, local E-stop, over-current, DC and compliance faults, acknowledged amplitude commands, ramped start/stop</td></tr>
         </table>
       </div>
+    </div>
+
+    <div class="plan card" id="planning">
+      <div class="plan-text">
+        <p class="mono tag">Targeting &amp; planning</p>
+        <h3>Plan the montage before the first session <span class="mono pill">simulation</span></h3>
+        <p>For every target, our planner searches all two-pair electrode montages on the 10-10 cap and five current ratios on an MRI-based head model, then ranks them by how strongly they modulate the target and how much of the rest of the cortex they spare. The chosen montage is exported as stimulator settings.</p>
+        <ol class="plan-steps mono">
+          <li>MRI</li><li>Head model</li><li>Leadfield</li><li>19.2 M settings / target</li><li>Device settings</li>
+        </ol>
+        <dl class="plan-stats">
+          <div><dt class="mono">0.26–0.33 V/m</dt><dd>envelope at the six deep targets, 2 mA per channel</dd></div>
+          <div><dt class="mono">1.3–1.6×</dt><dd>selectivity of the best two-pair montage over the best single pair</dd></div>
+          <div><dt class="mono">9.5–28×</dt><dd>less off-target grey matter modulated more strongly than the target</dd></div>
+        </dl>
+      </div>
+      <figure class="plan-chart">
+        <figcaption>
+          <b>Off-target grey matter modulated more strongly than the target</b>
+          <span class="mono">cm³ · log scale · lower is better</span>
+        </figcaption>
+        <div class="pc-legend mono" aria-hidden="true"><span class="pc-key pc-ti"></span>TI, two pairs <span class="pc-key pc-sp"></span>Single pair (tACS-like)</div>
+        <div class="pc-plot" role="img" aria-label="Bar chart. For six deep targets, the off-target grey-matter volume that is modulated more strongly than the target is 0.8 to 14 cm³ with TI and 19 to 305 cm³ with a single electrode pair.">
+          <div class="pc-grid" aria-hidden="true"><span style="--x:10.0%"><i>1</i></span><span style="--x:43.4%"><i>10</i></span><span style="--x:76.7%"><i>100</i></span></div>
+          <div class="pc-row">
+            <p class="pc-name">Ventral posterior thalamus <span class="pc-ind pc-pain">pain</span></p>
+            <div class="pc-bars">
+              <div class="pc-bar pc-ti" style="--w:48.3%" tabindex="0" data-tip="Ventral posterior thalamus · TI, two pairs: 14 cm³"><span class="mono">14</span></div>
+              <div class="pc-bar pc-sp" style="--w:92.9%" tabindex="0" data-tip="Ventral posterior thalamus · single pair: 305 cm³"><span class="mono">305</span></div>
+            </div>
+          </div>
+          <div class="pc-row">
+            <p class="pc-name">Dorsal anterior cingulate <span class="pc-ind pc-pain">pain</span></p>
+            <div class="pc-bars">
+              <div class="pc-bar pc-ti" style="--w:34.3%" tabindex="0" data-tip="Dorsal anterior cingulate · TI, two pairs: 5.3 cm³"><span class="mono">5.3</span></div>
+              <div class="pc-bar pc-sp" style="--w:74.4%" tabindex="0" data-tip="Dorsal anterior cingulate · single pair: 85 cm³"><span class="mono">85</span></div>
+            </div>
+          </div>
+          <div class="pc-row">
+            <p class="pc-name">Posterior insula <span class="pc-ind pc-pain">pain</span></p>
+            <div class="pc-bars">
+              <div class="pc-bar pc-ti" style="--w:37.4%" tabindex="0" data-tip="Posterior insula · TI, two pairs: 6.6 cm³"><span class="mono">6.6</span></div>
+              <div class="pc-bar pc-sp" style="--w:70.1%" tabindex="0" data-tip="Posterior insula · single pair: 63 cm³"><span class="mono">63</span></div>
+            </div>
+          </div>
+          <div class="pc-row">
+            <p class="pc-name">Subgenual cingulate (Cg25) <span class="pc-ind pc-depression">depression</span></p>
+            <div class="pc-bars">
+              <div class="pc-bar pc-ti" style="--w:13.6%" tabindex="0" data-tip="Subgenual cingulate (Cg25) · TI, two pairs: 1.3 cm³"><span class="mono">1.3</span></div>
+              <div class="pc-bar pc-sp" style="--w:61.7%" tabindex="0" data-tip="Subgenual cingulate (Cg25) · single pair: 36 cm³"><span class="mono">36</span></div>
+            </div>
+          </div>
+          <div class="pc-row">
+            <p class="pc-name">Nucleus accumbens <span class="pc-ind pc-depression">depression</span></p>
+            <div class="pc-bars">
+              <div class="pc-bar pc-ti" style="--w:7.2%" tabindex="0" data-tip="Nucleus accumbens · TI, two pairs: 0.8 cm³"><span class="mono">0.8</span></div>
+              <div class="pc-bar pc-sp" style="--w:52.4%" tabindex="0" data-tip="Nucleus accumbens · single pair: 19 cm³"><span class="mono">19</span></div>
+            </div>
+          </div>
+          <div class="pc-row">
+            <p class="pc-name">Hippocampus <span class="pc-ind pc-benchmark">benchmark</span></p>
+            <div class="pc-bars">
+              <div class="pc-bar pc-ti" style="--w:19.1%" tabindex="0" data-tip="Hippocampus · TI, two pairs: 1.9 cm³"><span class="mono">1.9</span></div>
+              <div class="pc-bar pc-sp" style="--w:66.0%" tabindex="0" data-tip="Hippocampus · single pair: 48 cm³"><span class="mono">48</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="pc-tip mono" role="tooltip" hidden></div>
+      </figure>
+      <p class="plan-note small muted">Template head (ICBM 2009c, SimNIBS 4.6 finite-element model, default conductivities), 10 mm electrodes, provisional target coordinates. At these depths, two-pair TI does not create an isolated hot spot: the target envelope is about as strong as the strongest 1% of the cortex. Its advantage is that far less of the cortex is modulated as strongly as the target. Next: the same plans on 20 individual heads from a public MRI dataset (IXI), then saline-phantom measurements with the stimulator.</p>
     </div>
 
     <div class="refs small muted">
@@ -393,7 +463,7 @@
     <div class="diff">
       <div><h4>vs. medication</h4><p>Targets circuits directly, with no systemic exposure.</p></div>
       <div><h4>vs. DBS / SCS</h4><p>Deep reach without surgery, implant or battery replacement.</p></div>
-      <div><h4>vs. rTMS / tDCS</h4><p>Steerable deep focus, and a dose that follows the brain's response instead of a fixed protocol.</p></div>
+      <div><h4>vs. rTMS / tDCS</h4><p>Reaches deep targets while modulating far less of the cortex than a single electrode pair, with a dose that follows the brain's response instead of a fixed protocol.</p></div>
       <div><h4>For trials</h4><p>Built-in sham mode and full audit trail support rigorous, blinded studies.</p></div>
     </div>
 
@@ -418,7 +488,7 @@
       <div class="tl tl-done">
         <p class="mono pill pill-ok">Done</p>
         <h4>tTIS design &amp; firmware</h4>
-        <p>Channel board v1.4 and host v1.1 pass design-rule and electrical-rule checks with zero errors. Firmware v0.2.6 passes 1,641 checks in the hardware model, including fault-injection regressions.</p>
+        <p>Channel board v1.4 and host v1.1 pass design-rule and electrical-rule checks with zero errors. Firmware v0.2.6 passes 1,641 checks in the hardware model, including fault-injection regressions. A montage planner ranks 19.2 M electrode settings per target on an MRI head model.</p>
       </div>
       <div class="tl tl-done">
         <p class="mono pill pill-ok">Running</p>
